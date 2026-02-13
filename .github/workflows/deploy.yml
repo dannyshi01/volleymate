@@ -17,10 +17,6 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./volleymate 
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -29,16 +25,21 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+
       - name: Install dependencies
+        # 不再加任何 working-directory，讓它在根目錄跑
         run: npm install
 
       - name: Build
+        # 加上 base-href 確保 GitHub Pages 資源路徑正確
         run: npm run build -- --base-href /volleymate/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./volleymate/dist/volleymate/browser
+          # 注意：這裡要填寫 npm run build 完產生的那個資料夾
+          # 根據 Angular 版本，通常是 ./dist/volleymate 或 ./dist/volleymate/browser
+          path: ./dist/volleymate/browser
 
   deploy:
     environment:
