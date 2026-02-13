@@ -1,0 +1,122 @@
+<div class="flex flex-col h-screen bg-stone-50">
+  <!-- Top Navigation Bar -->
+  <header class="bg-[#947A6D] text-white shadow-lg z-20 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+      
+      <!-- Brand / Back Button -->
+      <div class="flex items-center gap-3">
+        @if (state.activeSessionId()) {
+          <button 
+            (click)="goBackToSessions()"
+            class="mr-1 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+          >
+            <span class="material-icons-round text-lg">arrow_back</span>
+          </button>
+          <div class="flex flex-col">
+            <h1 class="text-sm md:text-lg font-bold leading-tight truncate max-w-[150px] md:max-w-none">
+                {{ state.activeSession()?.name }}
+            </h1>
+            <span class="text-[10px] md:text-xs opacity-80 font-medium">
+                {{ state.activeSession()?.date | date:'medium' }}
+            </span>
+          </div>
+        } @else {
+           <span class="material-icons-round text-3xl">sports_volleyball</span>
+           <h1 class="text-xl font-bold tracking-tight">VolleyMate <span class="font-light opacity-80">Pro</span></h1>
+        }
+      </div>
+      
+      <!-- Desktop Nav (Only Visible when Session Active) -->
+      @if (state.activeSessionId()) {
+        <nav class="hidden md:flex gap-1">
+          <button 
+            (click)="setTab('players')"
+            [class.bg-white]="activeTab() === 'players'"
+            [class.text-[#947A6D]]="activeTab() === 'players'"
+            [class.text-white]="activeTab() !== 'players'"
+            class="px-4 py-2 rounded-lg text-sm font-semibold transition-all hover:bg-white/10 flex items-center gap-2"
+          >
+            <span class="material-icons-round text-lg">people</span>
+            Players
+          </button>
+          <button 
+            (click)="setTab('teams')"
+            [class.bg-white]="activeTab() === 'teams'"
+            [class.text-[#947A6D]]="activeTab() === 'teams'"
+            [class.text-white]="activeTab() !== 'teams'"
+            class="px-4 py-2 rounded-lg text-sm font-semibold transition-all hover:bg-white/10 flex items-center gap-2"
+          >
+            <span class="material-icons-round text-lg">shuffle</span>
+            Teams
+          </button>
+          <button 
+            (click)="setTab('score')"
+            [class.bg-white]="activeTab() === 'score'"
+            [class.text-[#947A6D]]="activeTab() === 'score'"
+            [class.text-white]="activeTab() !== 'score'"
+            class="px-4 py-2 rounded-lg text-sm font-semibold transition-all hover:bg-white/10 flex items-center gap-2"
+          >
+            <span class="material-icons-round text-lg">scoreboard</span>
+            Scoreboard
+          </button>
+        </nav>
+      }
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="flex-1 overflow-hidden relative">
+    @if (!state.activeSessionId()) {
+        <!-- Session List View -->
+        <app-session-manager></app-session-manager>
+    } @else {
+        <!-- Active Session Views -->
+        <div class="h-full max-w-7xl mx-auto p-0 md:p-6 bg-stone-50 md:bg-transparent">
+          @if (activeTab() === 'players') {
+            <app-player-manager></app-player-manager>
+          }
+          @if (activeTab() === 'teams') {
+            <app-team-builder></app-team-builder>
+          }
+          @if (activeTab() === 'score') {
+            <app-scoreboard></app-scoreboard>
+          }
+        </div>
+    }
+  </main>
+
+  <!-- Mobile Bottom Nav (Only Visible when Session Active) -->
+  @if (state.activeSessionId()) {
+    <div class="md:hidden bg-white border-t border-stone-200 pb-safe">
+      <div class="grid grid-cols-3 h-16">
+        <button 
+          (click)="setTab('players')"
+          [class.text-[#947A6D]]="activeTab() === 'players'"
+          [class.text-stone-400]="activeTab() !== 'players'"
+          class="flex flex-col items-center justify-center gap-1 transition-colors"
+        >
+          <span class="material-icons-round">people</span>
+          <span class="text-[10px] font-medium">Players</span>
+        </button>
+        <button 
+          (click)="setTab('teams')"
+          [class.text-[#947A6D]]="activeTab() === 'teams'"
+          [class.text-stone-400]="activeTab() !== 'teams'"
+          class="flex flex-col items-center justify-center gap-1 transition-colors"
+        >
+          <span class="material-icons-round">shuffle</span>
+          <span class="text-[10px] font-medium">Teams</span>
+        </button>
+        <button 
+          (click)="setTab('score')"
+          [class.text-[#947A6D]]="activeTab() === 'score'"
+          [class.text-stone-400]="activeTab() !== 'score'"
+          class="flex flex-col items-center justify-center gap-1 transition-colors"
+        >
+          <span class="material-icons-round">scoreboard</span>
+          <span class="text-[10px] font-medium">Score</span>
+        </button>
+      </div>
+    </div>
+  }
+</div>
