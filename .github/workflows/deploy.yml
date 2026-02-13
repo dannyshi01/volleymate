@@ -28,7 +28,7 @@ jobs:
 
       - name: Install dependencies
         # 不再加任何 working-directory，讓它在根目錄跑
-        run: npm install
+        run: npm install --legacy-peer-deps
 
       - name: Build
         # 加上 base-href 確保 GitHub Pages 資源路徑正確
