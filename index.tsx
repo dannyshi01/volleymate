@@ -6,6 +6,7 @@ import { AppComponent } from './src/app.component';
 
 bootstrapApplication(AppComponent, {
   providers: [
+    // Use the stable API for zoneless change detection
     provideZonelessChangeDetection(),
     provideHttpClient()
   ]
