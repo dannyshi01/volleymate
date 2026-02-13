@@ -4,7 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>VolleyMate Pro</title>
+  
+  <!-- 
+    Tailwind CSS CDN:
+    This serves as a fallback for local development without a build step.
+    During the production build (GitHub Actions), Tailwind will be compiled 
+    into styles.css based on the tailwind.config.js
+  -->
   <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Build Output CSS -->
+  <link rel="stylesheet" href="src/styles.css">
+
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   <style>
     /* Custom Scrollbar for sleek look */
@@ -23,12 +34,31 @@
     }
   </style>
 <script type="importmap">
-
+{
+  "imports": {
+    "rxjs": "https://esm.sh/rxjs@^7.8.2?conditions=es2015",
+    "rxjs/operators": "https://esm.sh/rxjs@^7.8.2/operators?conditions=es2015",
+    "rxjs/ajax": "https://esm.sh/rxjs@^7.8.2/ajax?conditions=es2015",
+    "rxjs/webSocket": "https://esm.sh/rxjs@^7.8.2/webSocket?conditions=es2015",
+    "rxjs/testing": "https://esm.sh/rxjs@^7.8.2/testing?conditions=es2015",
+    "rxjs/fetch": "https://esm.sh/rxjs@^7.8.2/fetch?conditions=es2015",
+    "@angular/compiler": "https://esm.sh/@angular/compiler@^21.1.4?external=rxjs",
+    "@angular/platform-browser": "https://esm.sh/@angular/platform-browser@^21.1.4?external=rxjs",
+    "@angular/core": "https://esm.sh/@angular/core@^21.1.4?external=rxjs",
+    "@angular/common/http": "https://esm.sh/@angular/common@^21.1.4/http?external=rxjs",
+    "@angular/common": "https://esm.sh/@angular/common@^21.1.4?external=rxjs",
+    "@angular/forms": "https://esm.sh/@angular/forms@^21.1.4?external=rxjs",
+    "vite": "https://esm.sh/vite@^7.3.1?external=rxjs",
+    "@analogjs/vite-plugin-angular": "https://esm.sh/@analogjs/vite-plugin-angular@^2.2.3?external=rxjs"
+  }
+}
 </script>
-<script type="module" src="./index.tsx"></script>
 <link rel="stylesheet" href="/index.css">
 </head>
 <body class="bg-slate-50 text-slate-900 h-screen overflow-hidden selection:bg-indigo-100 selection:text-indigo-700">
   <app-root></app-root>
+  
+  <!-- Entry point for Vite Build -->
+  <script type="module" src="./index.tsx"></script>
 </body>
 </html>
