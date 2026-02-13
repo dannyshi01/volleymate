@@ -17,14 +17,14 @@ interface DragState {
       <div class="bg-white p-4 rounded-xl shadow-sm border border-stone-200 flex flex-wrap items-center justify-between gap-4 shrink-0">
         <div class="flex items-center gap-4 w-full md:w-auto">
             <div class="flex-1 md:flex-none">
-                <label class="text-xs font-bold text-stone-500 uppercase block mb-1">Team Count</label>
+                <label class="text-xs font-bold text-stone-500 uppercase block mb-1">隊伍數量</label>
                 <select 
                     [(ngModel)]="teamCount" 
                     class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-[#947A6D] focus:border-[#947A6D] block w-full p-2.5"
                 >
-                    <option [value]="2">2 Teams</option>
-                    <option [value]="3">3 Teams</option>
-                    <option [value]="4">4 Teams</option>
+                    <option [value]="2">2 隊</option>
+                    <option [value]="3">3 隊</option>
+                    <option [value]="4">4 隊</option>
                 </select>
             </div>
             
@@ -33,11 +33,11 @@ interface DragState {
                 class="mt-5 bg-[#947A6D] hover:bg-[#7d6559] text-white px-5 py-2.5 rounded-lg font-medium transition-colors flex items-center gap-2 shadow-sm flex-1 md:flex-none justify-center"
             >
                 <span class="material-icons-round text-lg">cached</span>
-                Generate
+                產生分隊
             </button>
         </div>
         <div class="text-xs text-stone-400 italic">
-           Drag players to move between teams.
+           拖曳球員可手動換隊
         </div>
       </div>
 
@@ -57,7 +57,7 @@ interface DragState {
                 <div class="bg-stone-50 p-3 border-b border-stone-200 flex justify-between items-center rounded-t-xl">
                 <h3 class="font-bold text-lg text-stone-800">{{ team.name }}</h3>
                 <div class="text-xs font-semibold bg-stone-200 text-stone-600 px-2 py-1 rounded">
-                    Avg: {{ getTeamAverage(team.players) | number:'1.1-1' }}
+                    均分: {{ getTeamAverage(team.players) | number:'1.1-1' }}
                 </div>
                 </div>
                 
@@ -101,13 +101,13 @@ interface DragState {
                     
                     @if (team.players.length === 0) {
                         <div class="h-20 flex items-center justify-center text-stone-400 text-xs italic">
-                            Drop players here
+                            拖曳球員至此
                         </div>
                     }
                 </div>
                 
                 <div class="bg-stone-50 p-2 text-center text-xs text-stone-400 border-t border-stone-200 rounded-b-xl mt-auto">
-                Total Players: {{ team.players.length }}
+                人數: {{ team.players.length }}
                 </div>
             </div>
             }
@@ -115,8 +115,8 @@ interface DragState {
             @if (state.teams().length === 0) {
                 <div class="col-span-full flex flex-col items-center justify-center text-stone-400 h-64 border-2 border-dashed border-stone-300 rounded-xl bg-stone-50/50">
                     <span class="material-icons-round text-5xl mb-3 text-stone-300">group_work</span>
-                    <p class="font-medium">No teams generated yet.</p>
-                    <p class="text-sm">Select "Generate" to start.</p>
+                    <p class="font-medium">尚未產生隊伍</p>
+                    <p class="text-sm">請點擊上方 "產生分隊"</p>
                 </div>
             }
         </div>

@@ -17,15 +17,15 @@ import { StateService, SkillLevel, Gender } from '../services/state.service';
              
              <!-- Left: Counts -->
              <div class="text-xs md:text-sm text-stone-600 font-medium flex gap-3 overflow-x-auto no-scrollbar items-center shrink-0">
-                <div class="flex items-center gap-1 shrink-0"><span class="w-2 h-2 rounded-full bg-stone-400"></span> {{ state.stats().total }} Total</div>
-                <div class="flex items-center gap-1 shrink-0"><span class="w-2 h-2 rounded-full bg-[#947A6D]"></span> {{ state.stats().present }} Present</div>
-                <div class="flex items-center gap-1 shrink-0"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> {{ state.stats().paidCount }} Paid</div>
+                <div class="flex items-center gap-1 shrink-0"><span class="w-2 h-2 rounded-full bg-stone-400"></span> {{ state.stats().total }} 總數</div>
+                <div class="flex items-center gap-1 shrink-0"><span class="w-2 h-2 rounded-full bg-[#947A6D]"></span> {{ state.stats().present }} 到場</div>
+                <div class="flex items-center gap-1 shrink-0"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> {{ state.stats().paidCount }} 已繳</div>
              </div>
 
              <!-- Right: Financials Input -->
              <div class="flex items-center gap-3 bg-white px-3 py-1.5 rounded-lg border border-stone-200 shadow-sm w-full md:w-auto justify-between md:justify-start">
                  <div class="flex items-center gap-1">
-                     <span class="text-xs font-bold text-stone-500 uppercase">Fee:</span>
+                     <span class="text-xs font-bold text-stone-500 uppercase">費用:</span>
                      <span class="text-stone-400 font-bold">$</span>
                      <input 
                          type="number" 
@@ -37,7 +37,7 @@ import { StateService, SkillLevel, Gender } from '../services/state.service';
                  </div>
                  <div class="w-px h-4 bg-stone-200"></div>
                  <div class="flex items-center gap-1">
-                     <span class="text-xs font-bold text-stone-500 uppercase">Total:</span>
+                     <span class="text-xs font-bold text-stone-500 uppercase">總計:</span>
                      <span class="text-emerald-600 font-bold">\${{ state.stats().collected | number }}</span>
                  </div>
              </div>
@@ -53,14 +53,14 @@ import { StateService, SkillLevel, Gender } from '../services/state.service';
                         class="px-4 py-2 bg-white border border-stone-300 rounded-lg text-stone-600 font-bold hover:bg-stone-50 hover:border-[#947A6D] hover:text-[#947A6D] transition-all flex items-center justify-center gap-2 shadow-sm text-sm"
                     >
                         <span class="material-icons-round text-base">person_add</span>
-                        <span class="hidden md:inline">Add Player</span>
+                        <span class="hidden md:inline">新增球員</span>
                     </button>
                     <button 
                         (click)="addMode.set('batch')"
                         class="px-4 py-2 bg-white border border-stone-300 rounded-lg text-stone-600 font-bold hover:bg-stone-50 hover:border-[#947A6D] hover:text-[#947A6D] transition-all flex items-center justify-center gap-2 shadow-sm text-sm"
                     >
                         <span class="material-icons-round text-base">playlist_add</span>
-                        <span class="hidden md:inline">Batch Import</span>
+                        <span class="hidden md:inline">批次匯入</span>
                     </button>
                 }
              </div>
@@ -72,7 +72,7 @@ import { StateService, SkillLevel, Gender } from '../services/state.service';
                     <button 
                         (click)="toggleActionsMenu()"
                         class="bg-white border border-stone-300 text-stone-600 rounded-lg w-8 h-8 flex items-center justify-center hover:bg-stone-50 active:bg-stone-100 transition-colors"
-                        title="Actions"
+                        title="更多動作"
                     >
                         <span class="material-icons-round text-lg">more_horiz</span>
                     </button>
@@ -80,14 +80,14 @@ import { StateService, SkillLevel, Gender } from '../services/state.service';
                     @if (showActionsMenu()) {
                         <div class="absolute right-0 top-full mt-1 w-48 bg-white rounded-xl shadow-xl border border-stone-100 z-50 overflow-hidden animate-scale-in">
                             <button (click)="exportList()" class="w-full text-left px-4 py-3 text-sm font-medium text-stone-700 hover:bg-stone-50 flex items-center gap-2">
-                                <span class="material-icons-round text-stone-400">description</span> Export List
+                                <span class="material-icons-round text-stone-400">description</span> 匯出名單
                             </button>
                             <div class="h-px bg-stone-100 mx-2"></div>
                             <button (click)="checkInAll()" class="w-full text-left px-4 py-3 text-sm font-medium text-stone-700 hover:bg-stone-50 flex items-center gap-2">
-                                <span class="material-icons-round text-stone-400">check_circle</span> Check In All
+                                <span class="material-icons-round text-stone-400">check_circle</span> 全部簽到
                             </button>
                             <button (click)="payAll()" class="w-full text-left px-4 py-3 text-sm font-medium text-stone-700 hover:bg-stone-50 flex items-center gap-2">
-                                <span class="material-icons-round text-stone-400">attach_money</span> Pay All (Present)
+                                <span class="material-icons-round text-stone-400">attach_money</span> 全部繳費 (已到場)
                             </button>
                         </div>
                         <!-- Backdrop to close -->
@@ -102,9 +102,9 @@ import { StateService, SkillLevel, Gender } from '../services/state.service';
                         (ngModelChange)="sort($event)"
                         class="bg-white border border-stone-300 text-stone-600 text-xs rounded-lg focus:ring-[#947A6D] focus:border-[#947A6D] block p-1.5 pl-2 pr-6 appearance-none font-bold cursor-pointer h-8"
                      >
-                        <option value="custom">Sort: Custom</option>
-                        <option value="present">Sort: Present</option>
-                        <option value="paid">Sort: Paid</option>
+                        <option value="custom">排序: 自訂</option>
+                        <option value="present">排序: 簽到</option>
+                        <option value="paid">排序: 繳費</option>
                      </select>
                      <span class="material-icons-round absolute right-1 top-1.5 text-sm text-stone-400 pointer-events-none">sort</span>
                  </div>
@@ -114,13 +114,13 @@ import { StateService, SkillLevel, Gender } from '../services/state.service';
          <!-- Single Add Form -->
          @if (addMode() === 'single') {
             <div class="flex flex-col gap-2 bg-white p-3 rounded-xl border border-stone-200 shadow-sm animate-fade-in">
-                <h3 class="text-xs font-bold text-stone-500 uppercase">New Player</h3>
+                <h3 class="text-xs font-bold text-stone-500 uppercase">新增球員</h3>
                 <div class="flex flex-col md:flex-row gap-2">
                     <!-- Name Input -->
                     <input 
                     type="text" 
                     [(ngModel)]="newName" 
-                    placeholder="Name" 
+                    placeholder="輸入姓名" 
                     class="flex-1 px-3 py-3 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#947A6D] bg-stone-50 shadow-sm"
                     >
                     
@@ -153,14 +153,14 @@ import { StateService, SkillLevel, Gender } from '../services/state.service';
                         (click)="cancelAdd()"
                         class="flex-1 py-2 rounded-lg bg-stone-100 text-stone-500 font-bold hover:bg-stone-200 transition-colors text-sm"
                     >
-                        Cancel
+                        取消
                     </button>
                     <button 
                         (click)="add()"
                         [disabled]="!newName().trim()"
                         class="flex-1 py-2 rounded-lg bg-[#947A6D] hover:bg-[#7d6559] text-white font-bold transition-colors shadow-sm disabled:opacity-50 text-sm"
                     >
-                        Add Player
+                        加入
                     </button>
                 </div>
             </div>
@@ -170,7 +170,7 @@ import { StateService, SkillLevel, Gender } from '../services/state.service';
          @if (addMode() === 'batch') {
             <div class="flex flex-col gap-2 bg-white p-3 rounded-xl border border-stone-200 shadow-sm animate-fade-in">
                 <div class="flex justify-between items-center">
-                    <h3 class="text-xs font-bold text-stone-500 uppercase">Batch Import</h3>
+                    <h3 class="text-xs font-bold text-stone-500 uppercase">批次匯入</h3>
                     <div class="flex items-center gap-2">
                         <select [(ngModel)]="batchLevel" class="text-xs border border-stone-200 rounded p-1 bg-stone-50">
                             @for (lvl of state.skillLevels; track lvl) { <option [value]="lvl">{{lvl}}</option> }
@@ -185,7 +185,7 @@ import { StateService, SkillLevel, Gender } from '../services/state.service';
 
                 <textarea 
                     [(ngModel)]="importText"
-                    placeholder="Format: Name Count&#10;Example:&#10;David 3&#10;Sarah 2"
+                    placeholder="格式: 姓名 數量 (可選)&#10;範例:&#10;小明 3 (會產生 小明 1, 小明 2, 小明 3)&#10;小美"
                     rows="4"
                     class="w-full px-3 py-2 border border-stone-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#947A6D] bg-stone-50 text-sm font-mono placeholder:text-stone-400"
                 ></textarea>
@@ -195,7 +195,7 @@ import { StateService, SkillLevel, Gender } from '../services/state.service';
                         (click)="cancelAdd()"
                         class="flex-1 py-2 rounded-lg bg-stone-100 text-stone-500 font-bold hover:bg-stone-200 transition-colors text-sm"
                     >
-                        Cancel
+                        取消
                     </button>
                     <button 
                         (click)="processBatch()"
@@ -203,7 +203,7 @@ import { StateService, SkillLevel, Gender } from '../services/state.service';
                         class="flex-1 py-2 rounded-lg bg-stone-800 hover:bg-stone-900 text-white font-bold transition-colors shadow-sm disabled:opacity-50 text-sm flex items-center justify-center gap-2"
                     >
                         <span class="material-icons-round text-sm">save_alt</span>
-                        Import
+                        匯入
                     </button>
                 </div>
             </div>
@@ -248,7 +248,7 @@ import { StateService, SkillLevel, Gender } from '../services/state.service';
                           <div class="flex items-center gap-1">
                              <span class="text-stone-800 font-bold text-lg leading-tight truncate">{{ player.name }}</span>
                           </div>
-                          <span class="text-xs text-stone-400">{{ player.present ? 'Checked In' : 'Absent' }}</span>
+                          <span class="text-xs text-stone-400">{{ player.present ? '已簽到' : '缺席' }}</span>
                       </div>
                   </div>
 
@@ -259,6 +259,7 @@ import { StateService, SkillLevel, Gender } from '../services/state.service';
                         (click)="state.togglePresence(player.id)"
                         [class]="player.present ? 'bg-[#947A6D] text-white border-[#947A6D]' : 'bg-white text-stone-300 border-stone-200'"
                         class="w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all active:scale-95"
+                        title="簽到"
                       >
                         <span class="material-icons-round">check</span>
                       </button>
@@ -270,6 +271,7 @@ import { StateService, SkillLevel, Gender } from '../services/state.service';
                         [class.opacity-30]="!player.present"
                         [class]="player.paid ? 'bg-emerald-500 text-white border-emerald-500' : 'bg-white text-stone-300 border-stone-200'"
                         class="w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all active:scale-95"
+                        title="繳費"
                       >
                         <span class="material-icons-round">attach_money</span>
                       </button>
@@ -288,7 +290,8 @@ import { StateService, SkillLevel, Gender } from '../services/state.service';
             @if (state.players().length === 0) {
               <div class="flex flex-col items-center justify-center h-64 text-stone-400">
                 <span class="material-icons-round text-5xl mb-2 opacity-20">sports_volleyball</span>
-                <p>No players yet.</p>
+                <p>尚無球員資料</p>
+                <p class="text-xs mt-1">點擊左上角新增球員</p>
               </div>
             }
         </div>
@@ -308,9 +311,9 @@ import { StateService, SkillLevel, Gender } from '../services/state.service';
           <div class="flex flex-col items-center mb-2">
              <div class="w-12 h-1 bg-stone-300 rounded-full mb-4"></div>
              <h3 class="text-lg font-bold text-stone-800">
-               {{ getActivePlayer()?.name || 'Player Actions' }}
+               {{ getActivePlayer()?.name || '球員選項' }}
              </h3>
-             <p class="text-sm text-stone-400">Select an action</p>
+             <p class="text-sm text-stone-400">請選擇動作</p>
           </div>
 
           <button 
@@ -318,7 +321,7 @@ import { StateService, SkillLevel, Gender } from '../services/state.service';
             class="w-full bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold py-3.5 rounded-xl flex items-center justify-center gap-2 transition-colors"
           >
             <span class="material-icons-round">edit</span>
-            Edit Details
+            編輯資料
           </button>
 
           <button 
@@ -326,14 +329,14 @@ import { StateService, SkillLevel, Gender } from '../services/state.service';
             class="w-full bg-rose-50 hover:bg-rose-100 text-rose-600 font-bold py-3.5 rounded-xl flex items-center justify-center gap-2 transition-colors"
           >
             <span class="material-icons-round">delete</span>
-            Delete Player
+            刪除球員
           </button>
 
           <button 
             (click)="closeMenu()"
             class="w-full bg-white text-stone-500 font-bold py-2 rounded-xl transition-colors mt-2"
           >
-            Cancel
+            取消
           </button>
        </div>
     }
@@ -343,7 +346,7 @@ import { StateService, SkillLevel, Gender } from '../services/state.service';
         <div class="fixed inset-0 bg-black/60 z-[60] flex items-center justify-center p-4 backdrop-blur-sm">
            <div class="bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl flex flex-col gap-4 animate-scale-in">
               <h3 class="text-xl font-bold text-stone-800 flex justify-between items-center">
-                  Export List
+                  匯出名單
                   <button (click)="closeExportModal()" class="text-stone-400 hover:text-stone-600 w-8 h-8 flex items-center justify-center rounded-full hover:bg-stone-100 transition-colors">
                       <span class="material-icons-round">close</span>
                   </button>
@@ -364,7 +367,7 @@ import { StateService, SkillLevel, Gender } from '../services/state.service';
                 [class.hover:bg-emerald-700]="copySuccess()"
               >
                 <span class="material-icons-round">{{ copySuccess() ? 'check' : 'content_copy' }}</span>
-                {{ copySuccess() ? 'Copied!' : 'Copy to Clipboard' }}
+                {{ copySuccess() ? '已複製!' : '複製到剪貼簿' }}
               </button>
            </div>
         </div>
@@ -374,23 +377,23 @@ import { StateService, SkillLevel, Gender } from '../services/state.service';
     @if (showEditModal()) {
         <div class="fixed inset-0 bg-black/60 z-[60] flex items-center justify-center p-4 backdrop-blur-sm">
            <div class="bg-white rounded-2xl p-6 w-full max-w-sm shadow-2xl flex flex-col gap-4 animate-scale-in">
-              <h3 class="text-xl font-bold text-stone-800 text-center">Edit Player</h3>
+              <h3 class="text-xl font-bold text-stone-800 text-center">編輯球員</h3>
               
               <!-- Name Input -->
               <div class="flex flex-col gap-1">
-                <label class="text-xs font-bold text-stone-500 uppercase ml-1">Name</label>
+                <label class="text-xs font-bold text-stone-500 uppercase ml-1">姓名</label>
                 <input 
                     type="text" 
                     [(ngModel)]="editName" 
                     class="w-full px-4 py-3 border border-stone-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#947A6D]"
-                    placeholder="Enter name"
+                    placeholder="輸入姓名"
                 >
               </div>
 
               <div class="flex gap-4">
                   <!-- Level Select -->
                   <div class="flex flex-col gap-1 flex-1">
-                    <label class="text-xs font-bold text-stone-500 uppercase ml-1">Level</label>
+                    <label class="text-xs font-bold text-stone-500 uppercase ml-1">程度</label>
                     <select 
                         [(ngModel)]="editLevel" 
                         class="w-full px-4 py-3 border border-stone-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#947A6D] bg-white appearance-none text-center font-bold"
@@ -403,7 +406,7 @@ import { StateService, SkillLevel, Gender } from '../services/state.service';
 
                   <!-- Gender Select -->
                   <div class="flex flex-col gap-1 flex-1">
-                     <label class="text-xs font-bold text-stone-500 uppercase ml-1">Gender</label>
+                     <label class="text-xs font-bold text-stone-500 uppercase ml-1">性別</label>
                      <div class="flex gap-1 h-[46px]"> <!-- height matches input (py-3 approx) -->
                         <button 
                             (click)="editGender.set('Male')"
@@ -436,14 +439,14 @@ import { StateService, SkillLevel, Gender } from '../services/state.service';
                    (click)="cancelEdit()"
                    class="flex-1 py-3 rounded-xl bg-stone-100 text-stone-600 font-bold hover:bg-stone-200 transition-colors"
                  >
-                   Cancel
+                   取消
                  </button>
                  <button 
                    (click)="executeEdit()"
                    [disabled]="!editName().trim()"
                    class="flex-1 py-3 rounded-xl bg-[#947A6D] text-white font-bold hover:bg-[#7d6559] shadow-lg shadow-stone-200 transition-colors disabled:opacity-50"
                  >
-                   Save
+                   儲存
                  </button>
               </div>
            </div>
@@ -459,9 +462,9 @@ import { StateService, SkillLevel, Gender } from '../services/state.service';
               </div>
               
               <div class="text-center">
-                 <h3 class="text-xl font-bold text-stone-800">Remove Player?</h3>
+                 <h3 class="text-xl font-bold text-stone-800">移除球員?</h3>
                  <p class="text-stone-500 mt-2">
-                    Are you sure you want to remove <span class="font-bold text-stone-800">{{ getActivePlayer()?.name }}</span> from the roster? This cannot be undone.
+                    您確定要將 <span class="font-bold text-stone-800">{{ getActivePlayer()?.name }}</span> 從名單中移除嗎？此動作無法復原。
                  </p>
               </div>
 
@@ -470,13 +473,13 @@ import { StateService, SkillLevel, Gender } from '../services/state.service';
                    (click)="cancelDelete()"
                    class="flex-1 py-3 rounded-xl bg-stone-100 text-stone-600 font-bold hover:bg-stone-200 transition-colors"
                  >
-                   Cancel
+                   取消
                  </button>
                  <button 
                    (click)="executeDelete()"
                    class="flex-1 py-3 rounded-xl bg-rose-500 text-white font-bold hover:bg-rose-600 shadow-lg shadow-rose-200 transition-colors"
                  >
-                   Yes, Remove
+                   確認移除
                  </button>
               </div>
            </div>
@@ -563,9 +566,9 @@ export class PlayerManagerComponent {
     const players = this.state.players();
     if (players.length === 0) return;
 
-    // Create text content: "No. Name Gender" using Chinese for Gender
+    // Format: "1. 王小明 (男) [已繳費]"
     const content = players
-        .map((p, i) => `${i + 1}. ${p.name} ${p.gender === 'Male' ? '男' : '女'}`)
+        .map((p, i) => `${i + 1}. ${p.name} (${p.gender === 'Male' ? '男' : '女'}) ${p.paid ? '[已繳]' : ''}`)
         .join('\n');
 
     this.exportContent.set(content);

@@ -22,7 +22,7 @@ import { StateService } from '../services/state.service';
                 <button 
                     (click)="$event.stopPropagation(); state.updateScore(0, -1)"
                     class="absolute top-4 right-4 w-12 h-12 md:w-16 md:h-16 flex items-center justify-center rounded-full bg-black/20 hover:bg-black/30 text-white/80 transition-colors z-20 active:scale-95"
-                    title="Subtract Point"
+                    title="扣分"
                 >
                     <span class="material-icons-round text-2xl md:text-3xl">remove</span>
                 </button>
@@ -39,7 +39,7 @@ import { StateService } from '../services/state.service';
 
                 <!-- Tap Hint -->
                 <div class="absolute bottom-4 text-white/40 text-xs font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
-                    Tap to Add Point
+                    點擊加分
                 </div>
             </div>
 
@@ -52,7 +52,7 @@ import { StateService } from '../services/state.service';
                 <button 
                     (click)="$event.stopPropagation(); state.updateScore(1, -1)"
                     class="absolute top-4 right-4 w-12 h-12 md:w-16 md:h-16 flex items-center justify-center rounded-full bg-black/20 hover:bg-black/30 text-white/80 transition-colors z-20 active:scale-95"
-                    title="Subtract Point"
+                    title="扣分"
                 >
                     <span class="material-icons-round text-2xl md:text-3xl">remove</span>
                 </button>
@@ -69,7 +69,7 @@ import { StateService } from '../services/state.service';
 
                 <!-- Tap Hint -->
                 <div class="absolute bottom-4 text-white/40 text-xs font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
-                    Tap to Add Point
+                    點擊加分
                 </div>
             </div>
         </div>
@@ -93,7 +93,7 @@ import { StateService } from '../services/state.service';
                     <div class="p-4 border-b border-stone-100 flex items-center justify-between">
                         <div class="flex items-center gap-2 text-stone-800">
                             <span class="material-icons-round text-stone-400">settings</span>
-                            <h3 class="font-bold text-lg">Match Control</h3>
+                            <h3 class="font-bold text-lg">比賽控制</h3>
                         </div>
                         <button (click)="toggleSettings()" class="text-stone-400 hover:text-stone-600">
                             <span class="material-icons-round">close</span>
@@ -111,8 +111,8 @@ import { StateService } from '../services/state.service';
                             >
                                 <span class="material-icons-round text-2xl">save</span>
                                 <div class="flex flex-col leading-none text-left">
-                                    <span class="text-base">Finish Set</span>
-                                    <span class="text-[10px] opacity-80 font-normal">Save Result & Reset 0-0</span>
+                                    <span class="text-base">結束此局</span>
+                                    <span class="text-[10px] opacity-80 font-normal">儲存並重置 0-0</span>
                                 </div>
                             </button>
 
@@ -121,13 +121,13 @@ import { StateService } from '../services/state.service';
                                 class="w-full py-3 bg-stone-100 hover:bg-stone-200 text-stone-600 font-bold rounded-xl flex items-center justify-center gap-2 transition-colors active:scale-95"
                             >
                                 <span class="material-icons-round">restart_alt</span>
-                                Reset Only (Discard)
+                                僅重置分數 (不儲存)
                             </button>
                         </div>
 
                         <!-- History Section -->
                         <div class="mt-2">
-                            <h4 class="text-xs font-bold text-stone-400 uppercase mb-2 tracking-wider">Session History</h4>
+                            <h4 class="text-xs font-bold text-stone-400 uppercase mb-2 tracking-wider">場次紀錄</h4>
                             
                             @if ((state.activeSession()?.matches || []).length > 0) {
                                 <div class="flex flex-col gap-2">
@@ -153,7 +153,7 @@ import { StateService } from '../services/state.service';
                             } @else {
                                 <div class="text-center py-6 text-stone-300 border-2 border-dashed border-stone-100 rounded-lg">
                                     <span class="material-icons-round text-3xl mb-1">history</span>
-                                    <p class="text-xs">No matches recorded yet.</p>
+                                    <p class="text-xs">尚無比賽紀錄</p>
                                 </div>
                             }
                         </div>
@@ -167,8 +167,8 @@ import { StateService } from '../services/state.service';
           <div class="h-full flex flex-col items-center justify-center p-8 bg-stone-100">
             <div class="bg-white p-8 rounded-3xl shadow-xl border border-stone-200 text-center max-w-sm">
                 <span class="material-icons-round text-6xl text-stone-300 mb-4">scoreboard</span>
-                <h3 class="text-xl font-bold text-stone-700">Ready to Play?</h3>
-                <p class="text-stone-500 mt-2">Go to the <strong>Teams</strong> tab and generate teams to start the match.</p>
+                <h3 class="text-xl font-bold text-stone-700">準備好比賽了嗎？</h3>
+                <p class="text-stone-500 mt-2">請先至 <strong>分隊產生</strong> 頁面建立隊伍，即可開始計分。</p>
             </div>
           </div>
       }
@@ -200,7 +200,7 @@ export class ScoreboardComponent {
   }
 
   saveAndReset() {
-      if (confirm('Finish this set? This will save the result and reset scores.')) {
+      if (confirm('確定要結束此局並儲存分數嗎？')) {
           this.state.saveMatchResult();
           this.state.resetScores();
           // We keep the settings open so they can see the history update, or we can close it.
@@ -209,7 +209,7 @@ export class ScoreboardComponent {
   }
 
   resetScoresOnly() {
-    if(confirm('Are you sure you want to discard current scores and reset to 0-0?')) {
+    if(confirm('確定要捨棄當前分數並重置為 0-0 嗎？')) {
         this.state.resetScores();
         this.showSettings.set(false);
     }
